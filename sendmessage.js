@@ -1,7 +1,6 @@
 const twilio = require('twilio')
 const twilioSid = 'AC2536a7152850c8792bcc00c4be946d63';
-const authToken = '743b54b2eb3a340ca3c0a5ac15eda31b';
-
+const authToken = '3ef6ddc098a4ace08aefc5bdc7328db4';
 
 function sendSosAlert() {
     // console.log()
@@ -24,4 +23,24 @@ function sendSosAlert() {
         }).catch(err => {
             console.log(err)
         })
+}
+
+function makeSosCall(params) {
+    const client = twilio(twilioSid, authToken, {
+        httpOptions: {
+            headers: {
+                'User-Agent': 'Twilio Node.js/3.60.0'
+            }
+        }
+    });
+
+
+    client.calls
+        .create({
+            twiml: 'https://demo.twilio.com/docs/voice.xml',
+            to: '+916383679570',
+            from: '+15025863781'
+        })
+        .then(call => console.log(call.sid));
+
 }
